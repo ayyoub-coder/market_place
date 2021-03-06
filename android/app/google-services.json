@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "748164207597",
+    "project_id": "marketplace-4f30a",
+    "storage_bucket": "marketplace-4f30a.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:748164207597:android:4f0d03978e7b9beaba4de4",
+        "android_client_info": {
+          "package_name": "com.ayoub.market_place"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "748164207597-hienrrnvr1nsu6jqj728nj9kla0ifs8s.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.ayoub.market_place",
+            "certificate_hash": "8bde39c2c591787067fb7c76fe39f6bd404a84fc"
+          }
+        },
+        {
+          "client_id": "748164207597-28ll6fl7jmdpij1je4slg43odl9ce9go.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD3ygVgw4UE5-RsXY1u8uf5INf7rHZRODM"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "748164207597-28ll6fl7jmdpij1je4slg43odl9ce9go.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
