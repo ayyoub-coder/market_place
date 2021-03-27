@@ -36,6 +36,12 @@ dependencies:
   firebase_auth: ^0.18.3
   google_sign_in: ^4.5.6
   flutter_facebook_login: ^3.0.0
+  carousel_slider: 2.3.1
+  cached_network_image: 2.3.3
+  flutter_svg: 0.18.1
+  tab_indicator_styler: ^1.0.0
+  flutter_sticky_header: ^0.5.0
+  sliver_tools: ^0.1.10+1
 
   # state management
   provider: ^4.3.2+2
@@ -60,6 +66,7 @@ flutter:
   assets:
     - assets/logos/facebook.jpg
     - assets/logos/google.jpg
+    - assets/img/
 
 
   fonts:

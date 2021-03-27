@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 
 import 'package:firebase_core/firebase_core.dart';
-import 'package:market_place/page/home_page.dart';
+
+import 'package:market_place/page/page.dart';
 
 Future main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -18,6 +19,7 @@ class MyApp extends StatelessWidget {
     debugShowCheckedModeBanner: false,
     title: title,
     theme: ThemeData(primarySwatch: Colors.deepOrange),
-    home: HomePage(),
+    home: Pages(),
+
   );
 }
