@@ -1,9 +1,12 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:market_place/model/category.dart';
+import 'package:market_place/model/hotel_list_data.dart';
 import 'package:market_place/model/slide.dart';
 import 'package:market_place/widget/categories_carousel_widget.dart';
+import 'package:market_place/widget/filter.dart';
 import 'package:market_place/widget/home_slider_widgets.dart';
+import 'package:market_place/widget/hotel_list_view.dart';
 
 
 class NestedTabBar extends StatefulWidget {
@@ -16,16 +19,23 @@ class _NestedTabBarState extends State<NestedTabBar>
     with TickerProviderStateMixin {
   TabController _nestedTabController;
 
+
+  AnimationController animationController;
+  List<HotelListData> hotelList = HotelListData.hotelList;
+  final ScrollController _scrollController = ScrollController();
   @override
   void initState() {
     super.initState();
-
+    animationController = AnimationController(
+        duration: const Duration(milliseconds: 1000), vsync: this);
     _nestedTabController = new TabController(length: 5, vsync: this);
   }
 
   @override
   void dispose() {
     super.dispose();
+    animationController.dispose();
+
     _nestedTabController.dispose();
   }
 
@@ -109,94 +119,84 @@ class _NestedTabBarState extends State<NestedTabBar>
               controller: _nestedTabController,
               children: <Widget>[
 
-                SingleChildScrollView(
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    mainAxisSize: MainAxisSize.max,
-                    children: [
-                      HomeSliderWidget(slides:slides),
-                      Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 20),
-                        child: ListTile(
-                          dense: true,
-                          contentPadding: EdgeInsets.symmetric(vertical: 0),
-                          leading: Icon(
-                            Icons.category,
-                            color: Theme.of(context).hintColor,
-                          ),
-                          title: Text(
+                NestedScrollView(
+                  controller: _scrollController,
+                  headerSliverBuilder:
+                      (BuildContext context, bool innerBoxIsScrolled) {
+                    return <Widget>[
+                      SliverList(
+                        delegate: SliverChildBuilderDelegate(
+                                (BuildContext context, int index) {
+                              return Column(
+                                children: [
+                                  HomeSliderWidget(slides:slides),
+                                  Padding(
+                                    padding: const EdgeInsets.symmetric(horizontal: 20),
+                                    child: ListTile(
+                                      dense: true,
+                                      contentPadding: EdgeInsets.symmetric(vertical: 0),
+                                      leading: Icon(
+                                        Icons.category,
+                                        color: Theme.of(context).hintColor,
+                                      ),
+                                      title: Text(
 
-                            'food_categories',
-                            style: Theme.of(context).textTheme.headline4.copyWith(fontSize: 24) ,
-                          ),
-                        ),
-                      ),
-                      CategoriesCarouselWidget(categories: categories,),
-                      Padding(
-                        padding: const EdgeInsets.only(left: 20, right: 20, bottom: 20),
-                        child: ListTile(
-                          dense: true,
-                          contentPadding: EdgeInsets.symmetric(vertical: 0),
-                          leading: Icon(
-                            Icons.trending_up,
-                            color: Theme.of(context).hintColor,
-                          ),
-                          title: Text(
-                            'Most Popular',
-                            style: Theme.of(context).textTheme.headline4.copyWith(fontSize: 24) ,
-                          ),
-                        ),
-                      ),
-                     // HomeSliderWidget(slides:slides),
-                      Container(height:MediaQuery.of(context).size.height/3,
-                      child: GridView.builder(
-                        itemCount: categories.length,
-                        gridDelegate:SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: (MediaQuery.of(context).orientation == Orientation.portrait) ? 2 : 3),
-                        itemBuilder: (BuildContext context, int index) {
-                          return new Card(
-                            child:  Stack(
-                              children: [
-                                CachedNetworkImage(
-                                  imageUrl: categories[index].url,
-                                  imageBuilder: (context, imageProvider) => Container(
-                                    decoration: BoxDecoration(
-                                      image: DecorationImage(
-                                          image: imageProvider,
-                                          fit: BoxFit.cover,
-                                          colorFilter:
-                                          ColorFilter.mode(Colors.white70, BlendMode.colorBurn)),
+                                        'food_categories',
+                                        style: Theme.of(context).textTheme.headline4.copyWith(fontSize: 24) ,
+                                      ),
                                     ),
                                   ),
-                                  placeholder: (context, url) => CircularProgressIndicator(),
-                                  errorWidget: (context, url, error) => Icon(Icons.error),
-                                ),
-                                Text(categories[index].name)
-                              ],
-                            )
-                          );
-                        },
-                      ),
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 20),
-                        child: ListTile(
-                          dense: true,
-                          contentPadding: EdgeInsets.symmetric(vertical: 0),
-                          leading: Icon(
-                            Icons.category,
-                            color: Theme.of(context).hintColor,
-                          ),
-                          title: Text(
+                                  CategoriesCarouselWidget(categories: categories,),
+                                ],
+                              );
 
-                            'food_categories',
-                            style: Theme.of(context).textTheme.headline4.copyWith(fontSize: 24) ,
-                          ),
+
+                            }, childCount: 1),
+                      ),
+                      SliverPersistentHeader(
+                        pinned: true,
+                        floating: true,
+                        delegate: ContestTabHeader(
+                          getFilterBarUI(context),
                         ),
                       ),
+                    ];
+                  },
+                   body:
 
-                    ],
-                  ),
+
+
+                           // HomeSliderWidget(slides:slides),
+                           Container(
+                             height:MediaQuery.of(context).size.height/1.8,
+                             child: ListView.builder(
+
+                               itemCount: hotelList.length,
+                               scrollDirection: Axis.vertical,
+                               itemBuilder: (BuildContext context, int index) {
+                                 final int count =
+                                 hotelList.length > 10 ? 10 : hotelList.length;
+                                 final Animation<double> animation =
+                                 Tween<double>(begin: 0.0, end: 1.0).animate(
+                                     CurvedAnimation(
+                                         parent: animationController,
+                                         curve: Interval((1 / count) * index, 1.0,
+                                             curve: Curves.fastOutSlowIn)));
+                                 animationController.forward();
+
+                                 return Padding(
+                                   padding: const EdgeInsets.only(top:8.0),
+                                   child: HotelListView(
+                                     callback: () {},
+                                     hotelData: hotelList[index],
+                                     animation: animation,
+                                     animationController: animationController,
+                                   ),
+                                 );
+                               },
+                             ),
+                           ),
+
                 ),
 
                 Container(
@@ -230,5 +230,30 @@ class _NestedTabBarState extends State<NestedTabBar>
       ),
 
     );
+  }
+}
+
+
+class ContestTabHeader extends SliverPersistentHeaderDelegate {
+  ContestTabHeader(
+      this.searchUI,
+      );
+  final Widget searchUI;
+
+  @override
+  Widget build(
+      BuildContext context, double shrinkOffset, bool overlapsContent) {
+    return searchUI;
+  }
+
+  @override
+  double get maxExtent => 52.0;
+
+  @override
+  double get minExtent => 52.0;
+
+  @override
+  bool shouldRebuild(SliverPersistentHeaderDelegate oldDelegate) {
+    return false;
   }
 }

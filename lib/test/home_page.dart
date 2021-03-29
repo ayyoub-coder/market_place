@@ -1,10 +1,8 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:market_place/page/home_page1.dart';
-import 'package:market_place/provider/google_sign_in.dart';
-import 'package:market_place/widget/background_painter.dart';
-import 'package:market_place/widget/logged_in_widget.dart';
-import 'package:market_place/widget/sign_up_widget.dart';
+import 'package:market_place/test/provider/google_sign_in.dart';
+import 'file:///C:/Users/hp/Desktop/codanews/market_place/lib/test/login_screen.dart';
+import 'file:///C:/Users/hp/Desktop/codanews/market_place/lib/test/logged_in_widget.dart';
 import 'package:provider/provider.dart';
 
 class HomePage extends StatelessWidget {
@@ -15,7 +13,7 @@ class HomePage extends StatelessWidget {
           child: StreamBuilder(
             stream: FirebaseAuth.instance.authStateChanges(),
             builder: (context, snapshot) {
-              final provider = Provider.of<GoogleSignInProvider>(context);
+              final  provider = Provider.of<GoogleSignInProvider>(context);
 
               if (provider.isSigningIn) {
                 return buildLoading();

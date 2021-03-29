@@ -2,7 +2,8 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_facebook_login/flutter_facebook_login.dart';
-import 'package:market_place/provider/google_sign_in.dart';
+import 'package:market_place/test/provider/google_sign_in.dart';
+
 
 import 'package:market_place/utility/constants.dart';
 import 'package:provider/provider.dart';
@@ -176,29 +177,7 @@ class _LoginScreenState extends State<LoginScreen> {
     );
   }
 
-  Widget _buildSocialBtn(Function onTap, AssetImage logo) {
-    return GestureDetector(
-      onTap: onTap,
-      child: Container(
-        height: 60.0,
-        width: 60.0,
-        decoration: BoxDecoration(
-          shape: BoxShape.circle,
-          color: Colors.white,
-          boxShadow: [
-            BoxShadow(
-              color: Colors.black26,
-              offset: Offset(0, 2),
-              blurRadius: 6.0,
-            ),
-          ],
-          image: DecorationImage(
-            image: logo,
-          ),
-        ),
-      ),
-    );
-  }
+
 
   Widget _buildSocialBtnRow() {
     return Padding(
@@ -206,52 +185,62 @@ class _LoginScreenState extends State<LoginScreen> {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         children: <Widget>[
-          isSignIn
-              ? Center(
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: <Widget>[
-                CircleAvatar(
-                  radius: 80,
-                  backgroundImage: NetworkImage(_user.photoURL),
-                ),
-                Text(
-                  _user.displayName,
-                  style: TextStyle(fontSize: 30),
-                ),
-                SizedBox(
-                  height: 30,
-                ),
-                OutlineButton(
-                  onPressed: () {
-                    gooleSignout();
-                  },
-                  child: Text(
-                    "Logout",
-                    style: TextStyle(fontSize: 20),
-                  ),
-                )
-              ],
-            ),
-          ):
-          _buildSocialBtn(
-                ()async {
-              await handleLogin();
+
+          //Facebook
+          GestureDetector(
+            onTap:    ()async {
+              await handleFacebookLogin();
             },
-            AssetImage(
-              'assets/logos/facebook.jpg',
+            child: Container(
+              height: 40.0,
+              width: 40.0,
+              decoration: BoxDecoration(
+                shape: BoxShape.circle,
+                color: Colors.white,
+                boxShadow: [
+                  BoxShadow(
+                    color: Colors.black26,
+                    offset: Offset(0, 2),
+                    blurRadius: 6.0,
+                  ),
+                ],
+                image: DecorationImage(
+                  image: AssetImage(
+                    'assets/logos/facebook.jpg',
+                  ),
+                ),
+              ),
             ),
           ),
-          _buildSocialBtn(
-                (){
-                  final provider =
-                  Provider.of<GoogleSignInProvider>(context, listen: false);
-                  provider.login();
-                },
-            AssetImage(
-              'assets/logos/google.jpg',
+
+          //Google
+          GestureDetector(
+            onTap:    (){
+              final provider =
+              Provider.of<GoogleSignInProvider>(context, listen: false);
+              provider.login();
+            },
+            child: Container(
+              height: 40.0,
+              width: 40.0,
+              decoration: BoxDecoration(
+                shape: BoxShape.circle,
+                color: Colors.white,
+                boxShadow: [
+                  BoxShadow(
+                    color: Colors.black26,
+                    offset: Offset(0, 2),
+                    blurRadius: 6.0,
+                  ),
+                ],
+                image: DecorationImage(
+                  image:    AssetImage(
+                    'assets/logos/google.jpg',
+                  ),
+                ),
+              ),
             ),
-          ),
+          )
         ],
       ),
     );
@@ -285,7 +274,7 @@ class _LoginScreenState extends State<LoginScreen> {
     );
   }
 
-  Future<void> gooleSignout() async {
+  Future<void> logOut() async {
     await _auth.signOut().then((onValue) {
       setState(() {
         facebookLogin.logOut();
@@ -294,7 +283,7 @@ class _LoginScreenState extends State<LoginScreen> {
     });
   }
 
-  Future<void> handleLogin() async {
+  Future<void> handleFacebookLogin() async {
     final FacebookLoginResult result = await facebookLogin.logIn(['email']);
     switch (result.status) {
       case FacebookLoginStatus.cancelledByUser:
@@ -303,7 +292,7 @@ class _LoginScreenState extends State<LoginScreen> {
         break;
       case FacebookLoginStatus.loggedIn:
         try {
-          await loginWithfacebook(result);
+          await loginWithFacebook(result);
         } catch (e) {
           print(e);
         }
@@ -311,7 +300,7 @@ class _LoginScreenState extends State<LoginScreen> {
     }
   }
 
-  Future loginWithfacebook(FacebookLoginResult result) async {
+  Future loginWithFacebook(FacebookLoginResult result) async {
     final FacebookAccessToken accessToken = result.accessToken;
     AuthCredential credential =
     FacebookAuthProvider.credential(accessToken.token);
@@ -357,7 +346,7 @@ class _LoginScreenState extends State<LoginScreen> {
                   physics: AlwaysScrollableScrollPhysics(),
                   padding: EdgeInsets.symmetric(
                     horizontal: 40.0,
-                    vertical: 120.0,
+                    vertical: 60.0,
                   ),
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
@@ -371,10 +360,10 @@ class _LoginScreenState extends State<LoginScreen> {
                           fontWeight: FontWeight.bold,
                         ),
                       ),
-                      SizedBox(height: 30.0),
+                      SizedBox(height: 20.0),
                       _buildEmailTF(),
                       SizedBox(
-                        height: 30.0,
+                        height: 20.0,
                       ),
                       _buildPasswordTF(),
                       _buildForgotPasswordBtn(),
