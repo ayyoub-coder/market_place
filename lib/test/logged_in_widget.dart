@@ -33,16 +33,17 @@ class LoggedInWidget extends StatelessWidget {
             ),
             SizedBox(height: 8),
             Text(
-              'Email: ' ,
+              'Email: ${user.email == ''?'ayoub@gmail.com':user.email}' ,
               style: TextStyle(color: Colors.white),
             ),
             SizedBox(height: 8),
             RaisedButton(
               color: Color(0xFF0072ff),
               onPressed: () {
-
+                print('*****************${user.email}');
                 final provider =
                     Provider.of<GoogleSignInProvider>(context, listen: false);
+                provider.facebookLogout();
                 provider.logout();
               },
               child: Text('Logout',style: TextStyle(

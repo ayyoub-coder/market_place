@@ -2,6 +2,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_facebook_login/flutter_facebook_login.dart';
+import 'package:market_place/repository/authentication.dart';
 import 'package:market_place/test/provider/google_sign_in.dart';
 
 
@@ -15,7 +16,7 @@ class LoginScreen extends StatefulWidget {
 
 class _LoginScreenState extends State<LoginScreen> {
   bool _rememberMe = false;
-
+  Authentication auth = Authentication();
   bool isSignIn = false;
   FirebaseAuth _auth = FirebaseAuth.instance;
   User _user;
@@ -132,13 +133,14 @@ class _LoginScreenState extends State<LoginScreen> {
     );
   }
 
+
   Widget _buildLoginBtn() {
     return Container(
       padding: EdgeInsets.symmetric(vertical: 25.0),
       width: double.infinity,
       child: RaisedButton(
         elevation: 5.0,
-        onPressed: () => print('Login Button Pressed'),
+        onPressed: () => auth.login("market_place","admin", "admin"),
         padding: EdgeInsets.all(15.0),
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(30.0),

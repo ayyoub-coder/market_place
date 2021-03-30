@@ -48,7 +48,7 @@ class HomePage extends StatelessWidget {
               ),
             ),
           ),
-          Center(child: CircularProgressIndicator(backgroundColor : Colors.white,)),
+          Center(child: CircularProgressIndicator(backgroundColor : Colors.white,valueColor:new AlwaysStoppedAnimation<Color>(Color(0xFF0072ff)), )),
         ],
       );
 }

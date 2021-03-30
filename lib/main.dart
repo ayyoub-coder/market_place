@@ -7,6 +7,7 @@ import 'package:google_sign_in/google_sign_in.dart';
 import 'file:///C:/Users/hp/Desktop/codanews/market_place/lib/test/login_screen.dart';
 
 import 'package:market_place/page/page.dart';
+import 'package:market_place/repository/authentication.dart';
 import 'package:market_place/test/home_page.dart';
 import 'package:market_place/view/login.dart';
 
@@ -21,11 +22,15 @@ class MyApp extends StatelessWidget {
   static final String title = 'Google SignIn';
 
   @override
-  Widget build(BuildContext context) => MaterialApp(
-    debugShowCheckedModeBanner: false,
-    title: title,
-    theme: ThemeData(primarySwatch: Colors.deepOrange),
-    home: HomePage(),
+  Widget build(BuildContext context) {
 
-  );
+   return MaterialApp(
+
+      debugShowCheckedModeBanner: false,
+      title: title,
+      theme: ThemeData(primarySwatch: Colors.deepOrange),
+      home: HomePage(),
+
+    );
+  }
 }
