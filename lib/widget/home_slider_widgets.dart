@@ -66,11 +66,11 @@ class _HomeSliderWidgetState extends State<HomeSliderWidget> {
                           errorWidget: (context, url, error) => Icon(Icons.error),
                         ),
                       ),
-                      Container(
+    /*         Container(
                         alignment: Alignment.center,
                         width: double.infinity,
                         padding: const EdgeInsets.symmetric(horizontal: 20),
-                        child: Container(
+                           child: Container(
                           width: 100,
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -107,7 +107,7 @@ class _HomeSliderWidgetState extends State<HomeSliderWidget> {
                             ],
                           ),
                         ),
-                      ),
+                      ),*/
                     ],
                   ),
                 );

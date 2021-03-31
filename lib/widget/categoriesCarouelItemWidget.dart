@@ -25,28 +25,33 @@ class CategoriesCarouselItemWidget extends StatelessWidget {
             tag: category.id,
             child: Container(
               margin: EdgeInsetsDirectional.only(start: this.marginLeft, end: 20),
-              width: 80,
-              height: 80,
+              width: 70,
+              height: 70,
               decoration: BoxDecoration(
                   color: Colors.white70,
-                  borderRadius: BorderRadius.all(Radius.circular(5)),
+                  borderRadius: BorderRadius.all(Radius.circular(50)),
                   boxShadow: [BoxShadow(color: Theme.of(context).focusColor.withOpacity(0.2), offset: Offset(0, 2), blurRadius: 7.0)]),
               child: Padding(
-                padding: const EdgeInsets.all(15),
+                padding: const EdgeInsets.all(0),
                 child: category.url.toLowerCase().endsWith('.svg')
-                    ? SvgPicture.network(
+                    ? ClipOval(
+                      child: SvgPicture.network(
                   category.url,
+                  fit: BoxFit.cover,
                   color: Theme.of(context).accentColor,
-                )
-                    : CachedNetworkImage(
+                ),
+                    )
+                    : ClipOval(
+                      child: CachedNetworkImage(
                   fit: BoxFit.cover,
                   imageUrl: category.url,
                   placeholder: (context, url) => Image.asset(
-                    'assets/img/loading.gif',
-                    fit: BoxFit.cover,
+                      'assets/img/loading.gif',
+                      fit: BoxFit.cover,
                   ),
                   errorWidget: (context, url, error) => Icon(Icons.error),
                 ),
+                    ),
               ),
             ),
           ),

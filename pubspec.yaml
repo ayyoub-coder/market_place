@@ -47,6 +47,10 @@ dependencies:
   flutter_launcher_icons: ^0.8.0
   intl: ^0.16.0
   smooth_star_rating: ^1.1.1
+  rounded_loading_button: ^1.0.14
+  flutter_icons: ^1.1.0
+  scoped_model: ^1.0.1
+  curved_navigation_bar: ^0.3.7
   # state management
   provider: ^4.3.2+2
 

@@ -17,7 +17,7 @@ class Authentication{
 
 
   UserOdoo users ;
-  Future<UserOdoo> login (String dataBase, String user , String password )async{
+  Future<bool> login (String dataBase, String user , String password )async{
 
     var uri = ApiUtl.MAIN_API_URL;
 
@@ -58,7 +58,7 @@ class Authentication{
       users = UserOdoo.fromJson(data);
       print('*****response  ${json.decode(response.data)}');
 
-     print('eroorrrrr ${users.result.name}');
+     print('name : ${users.result.name}');
 
 
     }

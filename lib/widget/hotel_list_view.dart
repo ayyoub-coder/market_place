@@ -31,7 +31,7 @@ class HotelListView extends StatelessWidget {
                 0.0, 50 * (1.0 - animation.value), 0.0),
             child: Padding(
               padding: const EdgeInsets.only(
-                  left: 24, right: 24, top: 8, bottom: 16),
+                  left: 24, right: 24, top: 8, bottom: 0),
               child: InkWell(
                 splashColor: Colors.transparent,
                 onTap: () {
