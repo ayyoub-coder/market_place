@@ -1,3 +1,4 @@
+import 'package:curved_navigation_bar/curved_navigation_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -26,17 +27,39 @@ class _PagesState extends State<Pages> {
   final GlobalKey<ScaffoldState> globalKey = new GlobalKey<ScaffoldState>();
   ScrollController scrollController ;
 
+  bool _showAppbar = true;
+  bool isScrollingDown = false;
+
 
   @override
   void initState() {
     super.initState();
-    scrollController = ScrollController();
+    scrollController = new ScrollController();
+
+    scrollController.addListener(() {
+      if (scrollController.position.userScrollDirection == ScrollDirection.reverse) {
+        if (!isScrollingDown) {
+          isScrollingDown = true;
+          _showAppbar = false;
+          setState(() {});
+        }
+      }
+
+      if (scrollController.position.userScrollDirection == ScrollDirection.forward) {
+        if (isScrollingDown) {
+          isScrollingDown = false;
+          _showAppbar = true;
+          setState(() {});
+        }
+      }
+    });
   }
 
 
   @override
   void dispose() {
     scrollController.dispose();
+    scrollController.removeListener(() {});
     super.dispose();
 
   }
@@ -146,170 +169,181 @@ class _PagesState extends State<Pages> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        leading: Padding(
-          padding: const EdgeInsets.all(8.0),
-          child: ClipOval(
-              child: Image.network(
-                "https://i.postimg.cc/xTGdV2xm/profile.jpg",
-                fit: BoxFit.cover,
-                width: 60.0,
-                height: 60.0,
-              )
-          ),
-        ),
-        title:buildHomeTitle(context),
-        actions: [
-          Container(
-            height: 55,
-            width: 35,
-            padding: EdgeInsets.fromLTRB(0, 8, 8, 8),
-            child: IconButton(
-              onPressed: (){},
-              icon: Icon(
-                FontAwesomeIcons.mapMarkerAlt,
-                color: Colors.white,
-                size: 18,
-              ),
-            ),
-          ),
-          Container(
-            height: 55,
-            width: 35,
-            padding: EdgeInsets.fromLTRB(0, 8, 8, 8),
-            child: IconButton(
-              onPressed: (){},
-              icon: Icon(
-                FontAwesomeIcons.bell,
-                color: Colors.white,
-                size: 18,
-              ),
-            ),
-          ),
-          Container(
-            height: 55,
-            width: 35,
-            padding: EdgeInsets.fromLTRB(0, 8, 8, 8),
-            child: IconButton(
-              onPressed: (){},
-              icon: Icon(
-                FontAwesomeIcons.commentDots,
-                color: Colors.white,
-                size: 18,
-              ),
-            ),
-          ),
-          Container(
-            height: 55,
-            width: 35,
-            padding: EdgeInsets.fromLTRB(0, 8, 8, 8),
-            child: IconButton(
-              onPressed: (){},
-              icon: Icon(
-                FontAwesomeIcons.shoppingCart,
-                color: Colors.white,
-                size: 18,
-              ),
-            ),
-          ),
-          Container(
-            height: 55,
-            width: 35,
-            padding: EdgeInsets.fromLTRB(0, 8, 8, 8),
-            child: IconButton(
-              onPressed: (){},
-              icon: Icon(
-                FontAwesomeIcons.ellipsisV,
-                color: Colors.white,
-                size: 18,
-              ),
-            ),
-          ),
-        ],
 
-        backgroundColor: Color(0xFF120078),
-
-      ),
         key: globalKey,
-        body: Stack(
-          children: [
+        body: SafeArea(
+          top: false ,
+          child: Column(
+            children: [
 
+              AnimatedContainer(
+                height: _showAppbar ? 80.0 : 0.0,
+                duration: Duration(milliseconds: 700),
+                child:  AppBar(
+                  leading: Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: ClipOval(
+                        child: Image.network(
+                          "https://i.postimg.cc/xTGdV2xm/profile.jpg",
+                          fit: BoxFit.cover,
+                          width: 60.0,
+                          height: 60.0,
+                        )
+                    ),
+                  ),
+                  title:buildHomeTitle(context),
+                  actions: [
+                    Container(
+                      height: 55,
+                      width: 35,
+                      padding: EdgeInsets.fromLTRB(0, 8, 8, 8),
+                      child: IconButton(
+                        onPressed: (){},
+                        icon: Icon(
+                          FontAwesomeIcons.mapMarkerAlt,
+                          color: Colors.white,
+                          size: 18,
+                        ),
+                      ),
+                    ),
+                    Container(
+                      height: 55,
+                      width: 35,
+                      padding: EdgeInsets.fromLTRB(0, 8, 8, 8),
+                      child: IconButton(
+                        onPressed: (){},
+                        icon: Icon(
+                          FontAwesomeIcons.bell,
+                          color: Colors.white,
+                          size: 18,
+                        ),
+                      ),
+                    ),
+                    Container(
+                      height: 55,
+                      width: 35,
+                      padding: EdgeInsets.fromLTRB(0, 8, 8, 8),
+                      child: IconButton(
+                        onPressed: (){},
+                        icon: Icon(
+                          FontAwesomeIcons.commentDots,
+                          color: Colors.white,
+                          size: 18,
+                        ),
+                      ),
+                    ),
+                    Container(
+                      height: 55,
+                      width: 35,
+                      padding: EdgeInsets.fromLTRB(0, 8, 8, 8),
+                      child: IconButton(
+                        onPressed: (){},
+                        icon: Icon(
+                          FontAwesomeIcons.shoppingCart,
+                          color: Colors.white,
+                          size: 18,
+                        ),
+                      ),
+                    ),
+                    Container(
+                      height: 55,
+                      width: 35,
+                      padding: EdgeInsets.fromLTRB(0, 8, 8, 8),
+                      child: IconButton(
+                        onPressed: (){},
+                        icon: Icon(
+                          FontAwesomeIcons.ellipsisV,
+                          color: Colors.white,
+                          size: 18,
+                        ),
+                      ),
+                    ),
+                  ],
 
-            Container(
-              width: double.infinity,
-              child: ListView.builder(
-                controller: scrollController,
-                itemBuilder: (context, index) {
-                  return ListTile(
-                    title: Text('Google $index'),
-                    onTap: () {},
-                  );
-                },
+                  backgroundColor: Color(0xFF120078),
+
+                ),
               ),
-            ),
-          ],
+
+              Expanded(
+                child: Container(
+                  width: double.infinity,
+                  child: ListView.builder(
+                    controller: scrollController,
+                    itemBuilder: (context, index) {
+                      return ListTile(
+                        title: Text('Google $index'),
+                        onTap: () {},
+                      );
+                    },
+                  ),
+                ),
+              ),
+            ],
+          ),
         ),
 
         //currentPage,
-        bottomNavigationBar: AnimatedBuilder (
-          animation: scrollController,
-          builder: (context, child) {
-            return AnimatedContainer(
-              duration: Duration(milliseconds: 300),
-              height:scrollController.position.userScrollDirection == ScrollDirection.reverse ?0:100,
-              child: child,
-            );
-          },
-          child:  BottomNavigationBar(
-          type: BottomNavigationBarType.shifting,
-          selectedItemColor: Color(0xFF120078),
-          selectedFontSize: 0,
-          unselectedFontSize: 0,
-          iconSize: 22,
-          elevation: 0,
-          backgroundColor: Colors.transparent,
-          selectedIconTheme: IconThemeData(size: 28),
-          unselectedItemColor: Theme.of(context).focusColor.withOpacity(1),
-          currentIndex: currentTab,
-          onTap: (int i) {
-            this._selectTab(i);
-          },
-          items: [
-            BottomNavigationBarItem(
-              icon: Icon(Icons.home),
-              label: '',
-            ),
-            BottomNavigationBarItem(
-                icon: Icon(Icons.map_rounded),
-                label: ''
-            ),
-            BottomNavigationBarItem(
-                label: '',
-                icon: Container(
-                  width: 50,
-                  height: 50,
-                  decoration: BoxDecoration(
-                    color: Color(0xFF120078),
-                    borderRadius: BorderRadius.all(
-                      Radius.circular(50),
-                    ),
-                    boxShadow: [
-                      BoxShadow(color: Color(0xFF120078).withOpacity(0.8), blurRadius: 6, offset: Offset(0, 2)),
-                      BoxShadow(color: Color(0xFF120078).withOpacity(0.8), blurRadius: 2, offset: Offset(0, 2))
-                    ],
-                  ),
-                  child: new Icon(Icons.add, color: Colors.white),
-                )),
-            BottomNavigationBarItem(
-              icon: new Icon(Icons.fastfood),
-              label: '',
-            ),
-            BottomNavigationBarItem(
-              icon: new Icon(Icons.chat),
-              label: '',
-            ),
-          ],
-        ),
+        bottomNavigationBar:   AnimatedContainer(
+          height: _showAppbar ?60.0:0.0,
+          duration: Duration(milliseconds: 700),
+          child:
+          ListView(
+           children: [
+             BottomNavigationBar(
+               type: BottomNavigationBarType.fixed,
+               selectedItemColor: Color(0xFF120078),
+               selectedFontSize: 0,
+               unselectedFontSize: 0,
+               iconSize: 22,
+               elevation: 0,
+               backgroundColor: Colors.transparent,
+               selectedIconTheme: IconThemeData(size: 28),
+               unselectedItemColor: Theme.of(context).focusColor.withOpacity(1),
+               currentIndex: currentTab,
+               onTap: (int i) {
+                 this._selectTab(i);
+               },
+               items: [
+                 BottomNavigationBarItem(
+                   icon: Icon(Icons.home),
+                   label: '',
+                 ),
+                 BottomNavigationBarItem(
+                     icon: Icon(Icons.map_rounded),
+                     label: ''
+                 ),
+                 BottomNavigationBarItem(
+                     label: '',
+                     icon: Container(
+                       width: 50,
+                       height: 50,
+                       decoration: BoxDecoration(
+                         color: Color(0xFF120078),
+                         borderRadius: BorderRadius.all(
+                           Radius.circular(50),
+                         ),
+                         boxShadow: [
+                           BoxShadow(color: Color(0xFF120078).withOpacity(0.8), blurRadius: 6, offset: Offset(0, 2)),
+                           BoxShadow(color: Color(0xFF120078).withOpacity(0.8), blurRadius: 2, offset: Offset(0, 2))
+                         ],
+                       ),
+                       child: new Icon(Icons.add, color: Colors.white),
+                     )),
+                 BottomNavigationBarItem(
+                   icon: new Icon(Icons.fastfood),
+                   label: '',
+                 ),
+                 BottomNavigationBarItem(
+                   icon: new Icon(Icons.chat),
+                   label: '',
+                 ),
+               ],
+             ),
+           ],
+          ),
+
+          //child: Container(height: 60, color: Colors.red,),
         ),
       );
   }
