@@ -13,6 +13,9 @@ import 'package:scoped_model/scoped_model.dart';
 
 
 class NestedTabBar extends StatefulWidget {
+  ScrollController scrollController;
+
+  NestedTabBar(this.scrollController);
 
   @override
   _NestedTabBarState createState() => _NestedTabBarState();
@@ -25,7 +28,7 @@ class _NestedTabBarState extends State<NestedTabBar>
 
   AnimationController animationController;
   List<HotelListData> hotelList = HotelListData.hotelList;
-  final ScrollController _scrollController = ScrollController();
+
   @override
   void initState() {
     super.initState();
@@ -192,9 +195,10 @@ class _NestedTabBarState extends State<NestedTabBar>
                   Container(
                     color: Colors.grey[200],
                   //  height: MediaQuery.of(context).size.height/2,
-                    child: CustomScrollView(
+                    child: CustomScrollView(controller: widget.scrollController,
                        slivers: <Widget> [
                          SliverList(
+
                            delegate: SliverChildBuilderDelegate(
                                    (BuildContext context, int index) {
                                  return Column(

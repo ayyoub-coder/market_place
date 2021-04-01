@@ -49,7 +49,7 @@ Widget canvas(BuildContext context){
   return Stack(
     children: <Widget>[
       CachedNetworkImage(
-        imageUrl: "https://i.postimg.cc/xC37VGfF/kfcCover.jpg",
+        imageUrl: "https://i.pinimg.com/564x/80/09/62/80096235fbd358bd15c893a9b626ae5a.jpg",
         imageBuilder: (context, imageProvider) => Container(
           decoration: BoxDecoration(
             image: DecorationImage(
@@ -59,27 +59,31 @@ Widget canvas(BuildContext context){
                 ColorFilter.mode(Colors.white, BlendMode.colorBurn)),
           ),
         ),
-        placeholder: (context, url) => CircularProgressIndicator(),
+        placeholder: (context, url) => Center(child: CircularProgressIndicator()),
         errorWidget: (context, url, error) => Icon(Icons.error),
       ),
       CustomPaint(
         painter: ProfilePainter(),
-      child: Container(),
+        child: Container(),
       ),
       AnimatedPositioned(
         duration: Duration(milliseconds: 200),
-        left: MediaQuery.of(context).size.width * 0.05,
+        left: MediaQuery.of(context).size.width * 0.01,
         top: true
-            ? MediaQuery.of(context).size.height * 0.20
+            ? MediaQuery.of(context).size.height * 0.19
             : MediaQuery.of(context).size.height * 0.21,
         child: AnimatedOpacity(
           duration: Duration(milliseconds: 200),
           opacity: true ? 1 : 0,
           child: CircleAvatar(
-            radius: 30.0,
-            backgroundImage:
-            NetworkImage('https://i.postimg.cc/XqNPjZXN/KFC.png'),
-            backgroundColor: Colors.transparent,
+            radius: 30,
+            backgroundColor: Colors.white,
+            child: CircleAvatar(
+              radius: 28.0,
+              backgroundImage:
+              NetworkImage('https://i.postimg.cc/XqNPjZXN/KFC.png'),
+              backgroundColor: Colors.transparent,
+            ),
           ),
         ),
       ),
@@ -93,7 +97,7 @@ class ProfilePainter extends CustomPainter {
   void paint(Canvas canvas, Size size) {
     Paint paint = Paint();
     Path path = Path();
-    paint.color = Colors.white;
+    paint.color = Color(0XffFFF1E2);
     path.lineTo(0, size.height * 0.8);
     path.lineTo(size.width, size.height );
     path.lineTo(size.width, size.height);
@@ -131,7 +135,7 @@ List<Tab> _tabs(List<String> categories){
 
 Widget infoCard(BuildContext context,DateTime startDate, DateTime endDate)  {
   return Padding(
-    padding: const EdgeInsets.symmetric(horizontal: 10,vertical: 10),
+    padding: const EdgeInsets.symmetric(horizontal: 4,vertical: 4),
     child: Row(
       children: <Widget>[
 
@@ -146,10 +150,10 @@ Widget infoCard(BuildContext context,DateTime startDate, DateTime endDate)  {
                     Text(
                       'American\nFast food\nFried chicken',
                       style: TextStyle(
-
-                          fontWeight: FontWeight.w100,
-                          fontSize: 16,
-                          color: Colors.grey.withOpacity(0.8)),
+                        fontWeight: FontWeight.w300,
+                        color: Colors.black87,
+                        fontSize: 16,
+                      ),
                     ),
 
                   ],
@@ -203,7 +207,8 @@ Widget infoCard(BuildContext context,DateTime startDate, DateTime endDate)  {
                           '${DateFormat("dd, MMM").format(startDate)}',
                           maxLines: 2,
                           style: TextStyle(
-                            fontWeight: FontWeight.w100,
+                            fontWeight: FontWeight.w300,
+                            color: Colors.black87,
                             fontSize: 16,
                           ),
                         ),
@@ -211,7 +216,8 @@ Widget infoCard(BuildContext context,DateTime startDate, DateTime endDate)  {
                           '${DateFormat("dd, MMM").format(endDate)}',
                           maxLines: 2,
                           style: TextStyle(
-                            fontWeight: FontWeight.w100,
+                            fontWeight: FontWeight.w300,
+                            color: Colors.black87,
                             fontSize: 16,
                           ),
                         ),
@@ -244,7 +250,8 @@ Widget infoCard(BuildContext context,DateTime startDate, DateTime endDate)  {
                       children: <Widget>[
                         Text("Delivery",
                           style: TextStyle(
-                            fontWeight: FontWeight.w100,
+                            fontWeight: FontWeight.w300,
+                            color: Colors.black87,
                             fontSize: 16,
                           ),
                         ),
@@ -252,7 +259,8 @@ Widget infoCard(BuildContext context,DateTime startDate, DateTime endDate)  {
                         Text(
                           "Drive & Collect",
                           style: TextStyle(
-                            fontWeight: FontWeight.w100,
+                            fontWeight: FontWeight.w300,
+                            color: Colors.black87,
                             fontSize: 16,
                           ),
                         ),
@@ -316,22 +324,35 @@ class Header extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      color: Colors.yellow,
-     padding: EdgeInsets.symmetric(horizontal: 10),
+
+
+
+      decoration: BoxDecoration(
+          color: Color(0xffA3080B),
+
+          border: Border.all(
+              color: Color(0xffFFF1E2),// set border color
+              width: 1.0),   // set border width
+          borderRadius: BorderRadius.all(
+              Radius.circular(4.0)), // set rounded corner radius
+          boxShadow: [BoxShadow(blurRadius: 2,color: Colors.black26,offset: Offset(1,2))]// make rounded corner of border
+      ),
+
+
       child:  Row(
         children: <Widget>[
           Expanded(
 
             child: Container(
-                padding: EdgeInsets.only(top: 3, left: 10),
+                padding: EdgeInsets.only(left: 10),
                 child: Text(
                   "KFC",
-                  style: TextStyle(fontSize: 27),
+                    style: TextStyle(fontSize: 30, fontFamily: 'Langer', color: Color(0xffFFF1E2)),
                 )),
             // width: 70,
           ),
           Container(
-            padding: EdgeInsets.all(4),
+            padding: EdgeInsets.only(right: 4),
             child: Column(
               children: <Widget>[
                  Row(
@@ -340,10 +361,15 @@ class Header extends StatelessWidget {
                   children: <Widget>[
                     Container(
                         child: Center(
-                            child: Text("3,5 "))),
-                    Icon(
-                      Icons.star,
-                      color: Colors.white,
+                            child: Text("3,5 ", style: TextStyle(fontSize: 20, fontFamily: 'Langer', color: Color(0xffFFF1E2)),))),
+                    Padding(
+                      padding: const EdgeInsets.only(bottom: 4),
+
+                      child: Icon(
+                        Icons.star,
+                        color: Colors.white,
+                        size: 24,
+                      ),
                     ),
                   ],
                 ),
@@ -351,14 +377,17 @@ class Header extends StatelessWidget {
                   crossAxisAlignment:
                   CrossAxisAlignment.end,
                   children: <Widget>[
-                    Text("(255"),
-                    Icon(
-                      Icons.star_border,
-                      color: Colors.white,
-                      size: 20.0,
+                    Text("(255", style: TextStyle(fontSize: 20, fontFamily: 'Langer', color: Color(0xffFFF1E2)),),
+                    Padding(
+                      padding: const EdgeInsets.only(bottom: 4),
+                      child: Icon(
+                        Icons.star_border,
+                        color: Colors.white,
+                        size: 24.0,
+                      ),
                     ),
 
-                    Text(")"),
+                    Text(")", style: TextStyle(fontSize: 20, fontFamily: 'Langer', color: Color(0xffFFF1E2)),),
 
                   ],
                 ),

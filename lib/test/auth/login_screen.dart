@@ -4,7 +4,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter_facebook_login/flutter_facebook_login.dart';
 import 'package:market_place/page/page.dart';
 import 'package:market_place/repository/authentication.dart';
-import 'package:market_place/test/auth/provider/google_sign_in.dart';
+import 'package:market_place/test/provider/google_sign_in.dart';
 
 
 import 'package:market_place/utility/constants.dart';

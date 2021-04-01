@@ -8,7 +8,10 @@ import 'package:market_place/page/food_screan.dart';
 import 'package:market_place/page/feed_scren.dart';
 import 'package:market_place/page/home.dart';
 import 'package:market_place/page/plus.dart';
+import 'package:market_place/test/challenge_list/main_concept_app.dart';
+import 'package:market_place/test/provider/state_management.dart';
 import 'package:market_place/test/tab_bar.dart';
+import 'package:provider/provider.dart';
 
 
 class Pages extends StatefulWidget {
@@ -23,7 +26,7 @@ class _PagesState extends State<Pages> {
   dynamic currentTab = 1;
 
   RouteArgument routeArgument;
-  Widget currentPage = NestedTabBar();
+  Widget currentPage  ;
   final GlobalKey<ScaffoldState> globalKey = new GlobalKey<ScaffoldState>();
   ScrollController scrollController ;
 
@@ -35,7 +38,7 @@ class _PagesState extends State<Pages> {
   void initState() {
     super.initState();
     scrollController = new ScrollController();
-
+   currentPage = NestedTabBar(scrollController);
     scrollController.addListener(() {
       if (scrollController.position.userScrollDirection == ScrollDirection.reverse) {
         if (!isScrollingDown) {
@@ -84,16 +87,16 @@ class _PagesState extends State<Pages> {
           currentPage = Home();
           break;
         case 1:
-          currentPage = NestedTabBar();
+          currentPage = NestedTabBar(scrollController);
           break;
         case 2 :
           currentPage = Plus();
           break;
         case 3:
-         currentPage = FoodScrean();
+         currentPage = FoodScrean(scrollController);
           break;
         case 4:
-         currentPage = FeedScrean();
+         currentPage =   MainConcept();
           break;
       }
     });
@@ -181,14 +184,16 @@ class _PagesState extends State<Pages> {
                 duration: Duration(milliseconds: 700),
                 child:  AppBar(
                   leading: Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: ClipOval(
-                        child: Image.network(
-                          "https://i.postimg.cc/xTGdV2xm/profile.jpg",
-                          fit: BoxFit.cover,
-                          width: 60.0,
-                          height: 60.0,
-                        )
+                    padding: const EdgeInsets.all(6.0),
+                    child: CircleAvatar(
+                      radius: 21,
+                      backgroundColor: Colors.white,
+                      child: CircleAvatar(
+                        radius: 20.0,
+                        backgroundImage:
+                        NetworkImage('https://i.postimg.cc/xTGdV2xm/profile.jpg'),
+                        backgroundColor: Colors.transparent,
+                      ),
                     ),
                   ),
                   title:buildHomeTitle(context),
@@ -266,24 +271,13 @@ class _PagesState extends State<Pages> {
               ),
 
               Expanded(
-                child: Container(
-                  width: double.infinity,
-                  child: ListView.builder(
-                    controller: scrollController,
-                    itemBuilder: (context, index) {
-                      return ListTile(
-                        title: Text('Google $index'),
-                        onTap: () {},
-                      );
-                    },
-                  ),
-                ),
+                child: currentPage,
               ),
             ],
           ),
         ),
 
-        //currentPage,
+        //
         bottomNavigationBar:   AnimatedContainer(
           height: _showAppbar ?60.0:0.0,
           duration: Duration(milliseconds: 700),

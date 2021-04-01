@@ -49,7 +49,7 @@ class Authentication{
 
     Response response  = await dio.post(ApiUtl.AUTH_LOGIN, options: option_head ,data:  body );
 
-    print('${response.statusCode}');
+    print('${response.headers}');
 
 
     if(response.statusCode == 200){

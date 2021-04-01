@@ -19,7 +19,7 @@ class HotelListData {
 
   static List<HotelListData> hotelList = <HotelListData>[
     HotelListData(
-      imagePath: 'assets/hotel/hotel_1.png',
+      imagePath: 'https://i.pinimg.com/564x/84/9a/2d/849a2d6561194b8c9675371cac8bac4e.jpg',
       titleTxt: 'Grand Royal Hotel',
       subTxt: 'Wembley, London',
       dist: 2.0,
@@ -28,7 +28,7 @@ class HotelListData {
       perNight: 180,
     ),
     HotelListData(
-      imagePath: 'assets/hotel/hotel_2.png',
+      imagePath: 'https://i.pinimg.com/564x/c4/af/40/c4af40c126cb2a716ee0d98cfe790c03.jpg',
       titleTxt: 'Queen Hotel',
       subTxt: 'Wembley, London',
       dist: 4.0,
@@ -37,7 +37,7 @@ class HotelListData {
       perNight: 200,
     ),
     HotelListData(
-      imagePath: 'assets/hotel/hotel_3.png',
+      imagePath: 'https://i.pinimg.com/564x/9c/51/c4/9c51c44773a114fdfa54e7a237234084.jpg',
       titleTxt: 'Grand Royal Hotel',
       subTxt: 'Wembley, London',
       dist: 3.0,
@@ -46,7 +46,7 @@ class HotelListData {
       perNight: 60,
     ),
     HotelListData(
-      imagePath: 'assets/hotel/hotel_4.png',
+      imagePath: 'https://i.pinimg.com/564x/46/0d/1d/460d1d84482b249e2890deafe2faca9f.jpg',
       titleTxt: 'Queen Hotel',
       subTxt: 'Wembley, London',
       dist: 7.0,
@@ -55,7 +55,7 @@ class HotelListData {
       perNight: 170,
     ),
     HotelListData(
-      imagePath: 'assets/hotel/hotel_5.png',
+      imagePath: 'https://i.pinimg.com/564x/e7/84/60/e784601d2cad6a33d06eca20d5a6e8c3.jpg',
       titleTxt: 'Grand Royal Hotel',
       subTxt: 'Wembley, London',
       dist: 2.0,
