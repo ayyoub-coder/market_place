@@ -22,8 +22,7 @@ class _FoodScreanState extends State<FoodScrean> with TickerProviderStateMixin {
   String dropdownValue = 'All';
   static Color _textColor = Color(0xFF4e4e4e);
   final _bloc = ListBloc();
-
-
+  
   bool showMenu = true;
   bool mealsMenuShown = false;
 
@@ -61,7 +60,7 @@ class _FoodScreanState extends State<FoodScrean> with TickerProviderStateMixin {
                             (context, index) => Container(
                             height: 200,
                               child: Card(
-
+                                elevation: 0,
                                   child: canvas(context))),
                         childCount: 1,
                       ),
@@ -78,18 +77,17 @@ class _FoodScreanState extends State<FoodScrean> with TickerProviderStateMixin {
                              child: Column(
                                children: [
                                  Container(
-
                                    alignment: Alignment.center,
                                    decoration: BoxDecoration(
-                                       color: Color(0xffFFF1E2),
+                                       color: Color(0xfffafafa),
                                        border: Border.all(
                                            color: Colors.grey,// set border color
                                            width: 1.0),   // set border width
                                        borderRadius: BorderRadius.all(
                                            Radius.circular(10.0)), // set rounded corner radius
-                                       boxShadow: [BoxShadow(blurRadius: 3,color: Colors.black54,offset: Offset(1,2))]// make rounded corner of border
+                                       boxShadow: [BoxShadow(blurRadius: 1,color: Colors.black54,offset: Offset(1,1))]// make rounded corner of border
                                    ),
-                                   child: infoCard(context , startDate,endDate),
+                                   child: infoCard(context),
                                  ),
 
                                  SizedBox(height: 10,) ,
@@ -218,10 +216,21 @@ class _FoodScreanState extends State<FoodScrean> with TickerProviderStateMixin {
                               height: 60,
                               child: TabBar(
                                 onTap: _bloc.onTabCategorySelected,
-                                indicatorWeight: 0.1,
+                                indicatorWeight: 2,
+                                labelStyle: TextStyle(
+                                    color: Color(0xFF023048), fontWeight: FontWeight.w400, fontSize: 17) ,
                                 isScrollable: true,
                                 controller: _bloc.tabController,
-                                tabs: _bloc.tabs.map((e) => AyoubTabWidget(e)).toList(),
+                                indicatorColor:Color(0xFF120078),
+                                labelColor: Color(0xFF120078),
+                                unselectedLabelColor: Colors.black54,
+                                indicatorSize: TabBarIndicatorSize.label,
+                                tabs: _bloc.tabs.map((e) => Padding(
+                                  padding: EdgeInsets.all(4),
+                                  child: Tab(
+                                    text:  e.category.name,
+                                  ),
+                                )).toList(),
                               ),
                             ),
                             Expanded(

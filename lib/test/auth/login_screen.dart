@@ -29,7 +29,6 @@ class _LoginScreenState extends State<LoginScreen> {
   User _user;
   FacebookLogin facebookLogin = FacebookLogin();
 
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -39,6 +38,8 @@ class _LoginScreenState extends State<LoginScreen> {
           onTap: () => FocusScope.of(context).unfocus(),
           child: Stack(
             children: <Widget>[
+
+
               Container(
                 height: double.infinity,
                 width: double.infinity,
@@ -68,6 +69,7 @@ class _LoginScreenState extends State<LoginScreen> {
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: <Widget>[
+
                       Text(
                         'Market Place',
                         style: TextStyle(

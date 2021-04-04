@@ -191,7 +191,7 @@ class _PagesState extends State<Pages> {
                       child: CircleAvatar(
                         radius: 20.0,
                         backgroundImage:
-                        NetworkImage('https://i.postimg.cc/xTGdV2xm/profile.jpg'),
+                        NetworkImage('http://51.91.158.179:8069/web/image/res.users/2/image_1920/300x300'),
                         backgroundColor: Colors.transparent,
                       ),
                     ),

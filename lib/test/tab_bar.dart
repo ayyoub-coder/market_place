@@ -155,7 +155,6 @@ class _NestedTabBarState extends State<NestedTabBar>
                     icon: Icon(Icons.image),
                   ),
                 ),
-
                 Padding(
                   padding: const EdgeInsets.all(4.0),
                   child: Tab(

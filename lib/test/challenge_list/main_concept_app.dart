@@ -59,7 +59,17 @@ class _ListConceptState extends State<_ListConcept>
                   indicatorWeight: 0.1,
                   isScrollable: true,
                   controller: _bloc.tabController,
-                  tabs: _bloc.tabs.map((e) => AyoubTabWidget(e)).toList(),
+                  tabs: _bloc.tabs.map((e) =>  Card(
+                    elevation: e.selected ? 6 : 0,
+                    child: Padding(
+                      padding: EdgeInsets.all(8),
+                      child: Text(
+                        e.category.name,
+                        style: TextStyle(
+                            color: Color(0xFF023048), fontWeight: FontWeight.bold, fontSize: 13),
+                      ),
+                    ),
+                  )).toList(),
                 ),
               ),
               Expanded(
@@ -82,30 +92,6 @@ class _ListConceptState extends State<_ListConcept>
   }
 }
 
-class AyoubTabWidget extends StatelessWidget {
-  final AyoubTabCategory tabCategory;
-
-  const AyoubTabWidget(this.tabCategory);
-
-  @override
-  Widget build(BuildContext context) {
-    final selected = tabCategory.selected;
-    return Opacity(
-      opacity: selected ? 1 : 0.5,
-      child: Card(
-        elevation: selected ? 6 : 0,
-        child: Padding(
-          padding: EdgeInsets.all(8),
-          child: Text(
-            tabCategory.category.name,
-            style: TextStyle(
-                color: _blueColor, fontWeight: FontWeight.bold, fontSize: 13),
-          ),
-        ),
-      ),
-    );
-  }
-}
 
 class ListCategoryItem extends StatelessWidget {
   const ListCategoryItem(this.category);
