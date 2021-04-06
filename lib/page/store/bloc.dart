@@ -2,14 +2,15 @@
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:market_place/test/challenge_list/data.dart';
+import 'package:market_place/page/store/data.dart';
+
 
 const categoryHeight =55.0;
 const productHeight  = 100.0;
 
 class ListBloc extends ChangeNotifier {
   TabController  tabController ;
-  List<AyoubTabCategory> tabs = [];
+  List<TabCategory> tabs = [];
   List<ListItem> items = [];
   ScrollController scrollController = ScrollController();
   bool listen = true;
@@ -34,7 +35,7 @@ class ListBloc extends ChangeNotifier {
         offsetTo = double.infinity;
         }
 
-      tabs.add(AyoubTabCategory(
+      tabs.add(TabCategory(
           category: category,
           selected: i==0,
           offsetForm: categoryHeight * i + offsetFrom,
@@ -96,18 +97,18 @@ class ListBloc extends ChangeNotifier {
   }
 }
 
-class AyoubTabCategory{
+class TabCategory{
   final ListCategory category;
   final bool selected;
   final double offsetForm;
   final double offsetTo;
-  AyoubTabCategory({@required this.category,@required this.selected,@required this.offsetForm, @required this.offsetTo,});
+  TabCategory({@required this.category,@required this.selected,@required this.offsetForm, @required this.offsetTo,});
 
-  AyoubTabCategory copyWith(bool selected)=>AyoubTabCategory(category: category, selected: selected,offsetForm: offsetForm,offsetTo: offsetTo);
+  TabCategory copyWith(bool selected)=>TabCategory(category: category, selected: selected,offsetForm: offsetForm,offsetTo: offsetTo);
 }
 
 class ListItem{
-  final  ListCategory category;
+  final  ListCategory  category;
   final ListProduct product ;
 
   const ListItem({ this.category, this.product});

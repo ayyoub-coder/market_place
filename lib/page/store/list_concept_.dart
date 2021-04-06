@@ -2,95 +2,21 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/cupertino.dart';
 
 import 'package:flutter/material.dart';
-import 'package:market_place/test/challenge_list/bloc.dart';
-import 'package:market_place/test/challenge_list/data.dart';
+import 'package:market_place/page/store/data.dart';
 
 
-const _backgroundColor = Color(0xFF6F9FA);
-const _blueColor = Color(0xFF0D1863);
+
+
+
+
+import 'package:market_place/utility/constants.dart';
+
+
+
+const _blueColor = MainColor;
 const _greenColor = Color(0xFF2BBEBA);
 const categoryHeight = 55.0;
 const productHeight = 100.0;
-
-class MainConcept extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return Theme(
-      data: ThemeData.light(),
-      child: _ListConcept(),
-    );
-  }
-}
-
-class _ListConcept extends StatefulWidget {
-  @override
-  _ListConceptState createState() => _ListConceptState();
-}
-
-class _ListConceptState extends State<_ListConcept>
-    with SingleTickerProviderStateMixin {
-  final _bloc = ListBloc();
-
-  @override
-  void initState() {
-    _bloc.init(this);
-    super.initState();
-  }
-
-  @override
-  void dispose() {
-    _bloc.dispose();
-    super.dispose();
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      body: SafeArea(
-        child: AnimatedBuilder(
-          animation: _bloc,
-          builder: (_, __) => Column(
-            crossAxisAlignment: CrossAxisAlignment.stretch,
-            children: [
-              Container(
-                height: 80,
-                child: TabBar(
-                  onTap: _bloc.onTabCategorySelected,
-                  indicatorWeight: 0.1,
-                  isScrollable: true,
-                  controller: _bloc.tabController,
-                  tabs: _bloc.tabs.map((e) =>  Card(
-                    elevation: e.selected ? 6 : 0,
-                    child: Padding(
-                      padding: EdgeInsets.all(8),
-                      child: Text(
-                        e.category.name,
-                        style: TextStyle(
-                            color: Color(0xFF023048), fontWeight: FontWeight.bold, fontSize: 13),
-                      ),
-                    ),
-                  )).toList(),
-                ),
-              ),
-              Expanded(
-                child: ListView.builder(
-                    controller: _bloc.scrollController,
-                    padding: EdgeInsets.symmetric(horizontal: 20),
-                    itemCount: _bloc.items.length,
-                    itemBuilder: (context, index) {
-                      final item = _bloc.items[index];
-                      return (item.isCategory)
-                          ? ListCategoryItem(item.category)
-                          : ListProductItem(item.product);
-                    }),
-              )
-            ],
-          ),
-        ),
-      ),
-    );
-  }
-}
 
 
 class ListCategoryItem extends StatelessWidget {
@@ -116,7 +42,7 @@ class ListCategoryItem extends StatelessWidget {
 
 class ListProductItem extends StatelessWidget {
   const ListProductItem(this.product);
-  final ListProduct product;
+  final ListProduct  product;
   @override
   Widget build(BuildContext context) {
     return Container(

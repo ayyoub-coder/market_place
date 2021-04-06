@@ -1,11 +1,13 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:market_place/test/provider/google_sign_in.dart';
-import 'file:///C:/Users/hp/Desktop/codanews/market_place/lib/test/auth/login_screen.dart';
-import 'file:///C:/Users/hp/Desktop/codanews/market_place/lib/test/auth/logged_in_widget.dart';
+import 'package:market_place/page/auth/logged_in_widget.dart';
+import 'package:market_place/page/auth/login_screen.dart';
+import 'package:market_place/page/auth/provider/google_sign_in.dart';
+
+
 import 'package:provider/provider.dart';
 
-class HomePage extends StatelessWidget {
+class HomeScreens extends StatelessWidget {
   @override
   Widget build(BuildContext context) => Scaffold(
         body: ChangeNotifierProvider(

@@ -1,9 +1,14 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:market_place/model/hotel_list_data.dart';
-import 'package:market_place/test/challenge_list/bloc.dart';
-import 'package:market_place/test/challenge_list/main_concept_app.dart';
+import 'package:market_place/page/store/bloc.dart';
+import 'package:market_place/page/store/list_concept_.dart';
+
+
+
+import 'file:///C:/Users/hp/Desktop/codanews/market_place/lib/widget/pop_pup_info.dart';
 import 'package:market_place/widget/canvas.dart';
+import 'package:market_place/widget/info_card.dart';
 import 'package:sliver_tools/sliver_tools.dart';
 
 class FoodScrean extends StatefulWidget {
@@ -157,32 +162,26 @@ class _FoodScreanState extends State<FoodScrean> with TickerProviderStateMixin {
                                             ),
                                             IconButton(icon:  Icon(
                                               Icons.star_border,
-                                              color: Colors.grey[700],
+                                              color: Color(0xFF120078),
                                               size: 25.0,
                                             ),
                                               onPressed: (){},
                                             ),
                                             IconButton(icon:  Icon(
                                               Icons.phone,
-                                              color: Colors.grey[700],
+                                              color: Color(0xFF120078),
                                               size: 25.0,
                                             ),
                                               onPressed: (){},
                                             ),
                                             IconButton(icon:  Icon(
                                               Icons.wrong_location_rounded,
-                                              color: Colors.grey[700],
+                                              color: Color(0xFF120078),
                                               size: 25.0,
                                             ),
                                               onPressed: (){},
                                             ),
-                                            IconButton(icon:  Icon(
-                                              Icons.more_horiz,
-                                              color: Colors.grey[700],
-                                              size: 25.0,
-                                            ),
-                                              onPressed: (){},
-                                            ),
+                                            PopPupInfo(),
                                           ],
                                         ),
 

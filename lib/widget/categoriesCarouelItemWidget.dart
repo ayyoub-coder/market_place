@@ -25,8 +25,8 @@ class CategoriesCarouselItemWidget extends StatelessWidget {
             tag: category.id,
             child: Container(
               margin: EdgeInsetsDirectional.only(start: this.marginLeft, end: 20),
-              width: 70,
-              height: 70,
+              width: 50,
+              height: 50,
               decoration: BoxDecoration(
                   color: Colors.white70,
                   borderRadius: BorderRadius.all(Radius.circular(50)),
@@ -43,8 +43,8 @@ class CategoriesCarouselItemWidget extends StatelessWidget {
                     )
                     : ClipOval(
                       child: CachedNetworkImage(
-                  fit: BoxFit.cover,
-                  imageUrl: category.url,
+                  fit: BoxFit.scaleDown,
+                  imageUrl: 'https://i.postimg.cc/XvQ5VWdN/check.png',
                   placeholder: (context, url) => Image.asset(
                       'assets/img/loading.gif',
                       fit: BoxFit.cover,

@@ -17,7 +17,7 @@ class Authentication{
 
   String aToken = '';
   UserOdoo users ;
-  Future<bool> login (String dataBase, String user , String password )async{
+  Future<String> login (String dataBase, String user , String password )async{
 
     var uri = ApiUtl.MAIN_API_URL;
 
@@ -49,21 +49,17 @@ class Authentication{
     );
 
     Response response  = await dio.post(ApiUtl.AUTH_LOGIN, options: option_head ,data:  body );
-
-    //print('${response.headers}');
-    final cookies = response.headers.map['set-cookie'];
-    print( cookies);
-    if (cookies.isNotEmpty && cookies.length == 1 ) {
-      print('true');
-      final authToken = cookies[0].split(';')[0];
-
-        aToken = authToken;
-    }
-    print('session id  :  $aToken');
-
-
     if(response.statusCode == 200){
 
+      final cookies = response.headers.map['set-cookie'];
+      print( cookies);
+      if (cookies.isNotEmpty && cookies.length == 1 ) {
+        print('true');
+        final authToken = cookies[0].split(';')[0];
+
+        aToken = authToken;
+      }
+      print('session id  :  $aToken');
       var data = json.decode(response.data);
       users = UserOdoo.fromJson(data);
     //  print('*****response  ${json.decode(response.data)}');
@@ -72,7 +68,7 @@ class Authentication{
 
 
     }
-      return null ;
+      return aToken ;
   }
 
 

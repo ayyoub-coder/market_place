@@ -4,14 +4,16 @@ import 'package:flutter/rendering.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:market_place/helpers/helper.dart';
 import 'package:market_place/model/route_argument.dart';
-import 'package:market_place/page/food_screan.dart';
-import 'package:market_place/page/feed_scren.dart';
-import 'package:market_place/page/home.dart';
-import 'package:market_place/page/plus.dart';
-import 'package:market_place/test/challenge_list/main_concept_app.dart';
-import 'package:market_place/test/provider/state_management.dart';
-import 'package:market_place/test/tab_bar.dart';
-import 'package:provider/provider.dart';
+import 'file:///C:/Users/hp/Desktop/codanews/market_place/lib/page/feed/feed_scren.dart';
+
+import 'file:///C:/Users/hp/Desktop/codanews/market_place/lib/page/home/home.dart';
+import 'package:market_place/page/marcket_place/marcket_place.dart';
+
+import 'file:///C:/Users/hp/Desktop/codanews/market_place/lib/page/plus/plus.dart';
+import 'package:market_place/page/store/food_screan.dart';
+
+
+import 'package:market_place/widget/search.dart';
 
 
 class Pages extends StatefulWidget {
@@ -38,7 +40,7 @@ class _PagesState extends State<Pages> {
   void initState() {
     super.initState();
     scrollController = new ScrollController();
-   currentPage = NestedTabBar(scrollController);
+   currentPage = MarcketPlaceScreen(scrollController);
     scrollController.addListener(() {
       if (scrollController.position.userScrollDirection == ScrollDirection.reverse) {
         if (!isScrollingDown) {
@@ -87,7 +89,7 @@ class _PagesState extends State<Pages> {
           currentPage = Home();
           break;
         case 1:
-          currentPage = NestedTabBar(scrollController);
+          currentPage = MarcketPlaceScreen(scrollController);
           break;
         case 2 :
           currentPage = Plus();
@@ -96,78 +98,12 @@ class _PagesState extends State<Pages> {
          currentPage = FoodScrean(scrollController);
           break;
         case 4:
-         currentPage =   MainConcept();
+         currentPage =  FeedScrean();
           break;
       }
     });
   }
-  Row buildHomeTitle(BuildContext context) {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.start,
-      crossAxisAlignment: CrossAxisAlignment.end,
-      children: <Widget>[
-        Expanded(
 
-          child: Container(
-            height: 50,
-            width: MediaQuery.of(context).size.width,
-            padding: EdgeInsets.fromLTRB(0, 8, 0, 8),
-            child: InkWell(
-              borderRadius: BorderRadius.circular(25),
-              enableFeedback: false,
-              splashColor: Colors.transparent,
-              onTap: () {
-                //  Navigator.push(context, MaterialPageRoute(builder: (context) => Search()));
-              },
-              child: TextField(
-                showCursor: false,
-                enabled: false,
-
-                decoration: InputDecoration(
-                  hintText: 'hint',
-                  hintStyle: TextStyle(
-                    color: Colors.white,
-                    fontSize: 16,
-                    fontFamily: 'Circular',
-                  ),
-                  //fillColor: Theme.of(context).brightness == Brightness.dark ? Theme.of(context).inputDecorationTheme.fillColor : Colors.white,
-                  filled: true,
-                  disabledBorder: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(25),
-                    borderSide: BorderSide(
-                      color: Colors.white,
-                      width: 0,
-                    ),
-                  ),
-                  enabledBorder: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(25),
-                    borderSide: BorderSide(
-                      color: Theme.of(context).focusColor,
-                      width: 0,
-                    ),
-                  ),
-                  focusedBorder: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(25),
-                    borderSide: BorderSide(
-                      color: Theme.of(context).focusColor,
-                      width: 0,
-                    ),
-                  ),
-                  contentPadding: EdgeInsets.all(6),
-                  prefixIcon: Icon(
-                    FontAwesomeIcons.search,
-                    color: Colors.white,
-                    size: 18,
-                  ),
-                ),
-              ),
-            ),
-          ),
-        ),
-
-      ],
-    );
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -196,7 +132,7 @@ class _PagesState extends State<Pages> {
                       ),
                     ),
                   ),
-                  title:buildHomeTitle(context),
+                  title:SearchInAppBar(context),
                   actions: [
                     Container(
                       height: 55,
@@ -342,82 +278,3 @@ class _PagesState extends State<Pages> {
       );
   }
 }
-
-
-
-
-class CustomAppBar extends StatelessWidget {
-
-
-  const CustomAppBar({Key key}) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      color: Color(0xFF120078),
-      height: MediaQuery.of(context).size.height * 0.10,
-      padding: EdgeInsets.only(top: 20,left: 15,right: 15),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [
-          Stack(
-            children: [
-              Align(
-                alignment: Alignment.center,
-                child: Container(
-                  height: 36,
-                  width: 36,
-                  decoration: BoxDecoration(
-                    border: Border.all(color: Colors.white,width: 2),
-                    borderRadius: BorderRadius.all(Radius.circular(30)),
-                  ),
-                  child: ClipRRect(
-                      borderRadius: BorderRadius.all(Radius.circular(30)),
-                      child: Image.asset("assets/profile.jpg")),
-                ),
-              ),
-              Positioned(
-                bottom: 5,
-                right: 0,
-                child: Container(
-                  width: 17,
-                  height: 17,
-                  decoration: BoxDecoration(
-                    color: Colors.white,
-                    borderRadius: BorderRadius.all(Radius.circular(30)),
-                  ),
-                  child: Icon(Icons.menu,color: Color(0xFF120078),size: 14,),
-                ),
-              )
-            ],
-          ),
-          Container(
-            height: 35,
-            width: MediaQuery.of(context).size.width/1.40,
-            decoration: BoxDecoration(
-                borderRadius: BorderRadius.all(Radius.circular(4)),
-                color: Colors.white70
-            ),
-            child: TextField(
-              decoration: InputDecoration(
-                  hintText: "Search",
-                  border: InputBorder.none,
-                  prefixIcon: Icon(Icons.search,color: Colors.black87,),
-                  suffixIcon: Icon(Icons.qr_code,color: Colors.black87)
-              ),
-            ),
-          ),
-          Container(
-            height: 30,
-            width: 30,
-            child: ClipRRect(
-                borderRadius: BorderRadius.all(Radius.circular(30)),
-                child: Image.asset("assets/icons/message_icon_1.png",color: Colors.white,)),
-          ),
-        ],
-      ),
-    );
-  }
-}
-
-

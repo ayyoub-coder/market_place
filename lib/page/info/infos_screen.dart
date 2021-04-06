@@ -1,15 +1,21 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:market_place/widget/canvas.dart';
-import 'package:sliver_tools/sliver_tools.dart';
-import 'package:url_launcher/url_launcher.dart';
+import 'package:google_fonts/google_fonts.dart';
+import 'file:///C:/Users/hp/Desktop/codanews/market_place/lib/widget/pop_pup_info.dart';
 
-class TestSliver extends StatefulWidget {
+import 'file:///C:/Users/hp/Desktop/codanews/market_place/lib/page/info/about_us.dart';
+import 'package:market_place/utility/constants.dart';
+
+import 'package:market_place/widget/info_card_details.dart';
+import 'package:sliver_tools/sliver_tools.dart';
+
+
+class InfoScreen extends StatefulWidget {
   @override
-  _TestSliverState createState() => _TestSliverState();
+  _InfoScreenState createState() => _InfoScreenState();
 }
 
-class _TestSliverState extends State<TestSliver> with TickerProviderStateMixin {
+class _InfoScreenState extends State<InfoScreen> with TickerProviderStateMixin {
 
   static const String long_lorem =
       "Quiuscipit ac.   consequat vitae. Quisque sapien lorem, vestibulum vitae justo eget, fringilla eleifend nisi."
@@ -72,7 +78,7 @@ class _TestSliverState extends State<TestSliver> with TickerProviderStateMixin {
         ),
         SliverFixedExtentList(delegate: SliverChildListDelegate([
           Container(
-            padding: EdgeInsets.all(4),
+
             alignment: Alignment.center,
             decoration: BoxDecoration(
                 color: Color(0xfffafafa),
@@ -85,18 +91,19 @@ class _TestSliverState extends State<TestSliver> with TickerProviderStateMixin {
             ),
             child: infoCardDetails(context),
           ),
-        ]), itemExtent: size.height/8),
+        ]), itemExtent: size.height*0.1),
         SliverFixedExtentList(delegate: SliverChildListDelegate([
 
           Container(
 
             child: Row(
-              crossAxisAlignment: CrossAxisAlignment.center,
-              mainAxisAlignment: MainAxisAlignment.spaceAround,
+              crossAxisAlignment: CrossAxisAlignment.baseline,
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                IconButton(icon: Icon(FontAwesomeIcons.star,color: Colors.grey,size: 25,), onPressed: (){}),
-                IconButton(icon: Icon(FontAwesomeIcons.phone,color: Colors.grey,size: 25,), onPressed: (){}),
-                IconButton(icon: Icon(FontAwesomeIcons.thumbsUp,color: Colors.grey,size: 25,), onPressed: (){}),
+                IconButton(icon: Icon(FontAwesomeIcons.star,color: Color(0xFF120078),size: 22,), onPressed: (){}),
+                IconButton(icon: Icon(FontAwesomeIcons.phone,color: Color(0xFF120078),size: 22,), onPressed: (){}),
+                IconButton(icon: Icon(FontAwesomeIcons.share,color: Color(0xFF120078),size: 22,), onPressed: (){}),
+                PopPupInfo(),
               ],
             ),
           ),
@@ -130,38 +137,59 @@ class _TestSliverState extends State<TestSliver> with TickerProviderStateMixin {
 
         ),),
         SliverPinnedHeader(child: Container(
-          height: size.height-100,
+          height: size.height/1.6,
           child: TabBarView(
             controller: _tabController,
             children: <Widget>[
-              ListView(
-                children: [
 
-                  Container(
-                    margin: EdgeInsets.symmetric(horizontal: 15,vertical: 8),
-                    child: InkWell(
-                        child: Text("https://www.google.com/", style: TextStyle(decoration: TextDecoration.underline, color: Colors.blue)),
-                        onTap: () {
-                          _launchURL();
-                        }
+              CustomScrollView(
+                physics: const BouncingScrollPhysics(),
+                slivers: [
+                  SliverAppBar(
+                    backgroundColor: MainColor,
+                    expandedHeight: 200,
+                    stretch: true,
+                    automaticallyImplyLeading: false,
+                    stretchTriggerOffset: 200,
+                    flexibleSpace: FlexibleSpaceBar(
+                      title: Text(
+                        'KFC STORE',
+                        style: GoogleFonts.inconsolata(fontWeight: FontWeight.w400),
+                      ),
+                      centerTitle: true,
+                      stretchModes: const [
+                        StretchMode.zoomBackground,
+                        StretchMode.fadeTitle,
+                        StretchMode.blurBackground,
+                      ],
+                      background: Stack(
+                        fit: StackFit.expand,
+                        children: [
+                          Image.network(
+                            'https://i.pinimg.com/564x/a2/bc/91/a2bc9153a00757ffb711a022ec02bffe.jpg?q=50&fit=crop&w=960&h=500&dpr=1.5',
+                            fit: BoxFit.cover,
+                          ),
+                          const DecoratedBox(
+                            decoration: BoxDecoration(
+                              gradient: LinearGradient(
+                                begin: Alignment(0.0, 0.5),
+                                end: Alignment(0.0, 0.0),
+                                colors: <Color>[
+                                  Color(0x60000000),
+                                  Color(0x00000000),
+                                ],
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
                     ),
                   ),
-                  Container(
-                    margin: EdgeInsets.symmetric(horizontal: 15),
-                    child: Text(long_lorem, textAlign: TextAlign.justify,
-                        style: medium(context).copyWith(color:Colors.black54)
-                    ),
-                  ),
-                  SizedBox(height: 10,),
-                  Container(
-                    height: 200,
-                    child: Card(
-                      margin: EdgeInsets.all(8),
-                      elevation: 4,
-                      child: Image.network('https://i.pinimg.com/564x/a2/bc/91/a2bc9153a00757ffb711a022ec02bffe.jpg',fit: BoxFit.cover,),
-                    ),
-                  ),
-                  SizedBox(height: 200,),
+                  SliverList(
+                    delegate: SliverChildListDelegate([
+                      const AboutUs(),
+                    ]),
+                  )
                 ],
               ),
               Container(
@@ -194,12 +222,5 @@ class _TestSliverState extends State<TestSliver> with TickerProviderStateMixin {
       ],
     );
   }
-  _launchURL() async {
-    const url = 'https://google.com.br';
-    if (await canLaunch(url)) {
-      await launch(url);
-    } else {
-      throw 'Could not launch $url';
-    }
-  }
+
 }
