@@ -15,7 +15,7 @@ import 'package:odoo_api/odoo_user_response.dart';
 
 class Authentication{
 
-
+  String aToken = '';
   UserOdoo users ;
   Future<bool> login (String dataBase, String user , String password )async{
 
@@ -44,19 +44,29 @@ class Authentication{
     };
 
     Options option_head = Options(
+
       headers: {"Content-Type": "application/json"},
     );
 
     Response response  = await dio.post(ApiUtl.AUTH_LOGIN, options: option_head ,data:  body );
 
-    print('${response.headers}');
+    //print('${response.headers}');
+    final cookies = response.headers.map['set-cookie'];
+    print( cookies);
+    if (cookies.isNotEmpty && cookies.length == 1 ) {
+      print('true');
+      final authToken = cookies[0].split(';')[0];
+
+        aToken = authToken;
+    }
+    print('session id  :  $aToken');
 
 
     if(response.statusCode == 200){
 
       var data = json.decode(response.data);
       users = UserOdoo.fromJson(data);
-      print('*****response  ${json.decode(response.data)}');
+    //  print('*****response  ${json.decode(response.data)}');
 
      print('name : ${users.result.name}');
 

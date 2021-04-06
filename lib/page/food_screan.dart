@@ -43,41 +43,62 @@ class _FoodScreanState extends State<FoodScrean> with TickerProviderStateMixin {
   Widget build(BuildContext context) {
     return  Scaffold(
       body: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 2),
+        padding: const EdgeInsets.symmetric(horizontal: 0),
         child: CustomScrollView(
           controller: widget.scrollController,
           slivers: [
             SliverStack(
               children: [
-
                 MultiSliver(
                   children: <Widget>[
-                    ///sliver 0
-                    //  SliverStickyHeader(
-                    //    header: Header()),
                     SliverList(
                       delegate: SliverChildBuilderDelegate(
-                            (context, index) => Container(
-                            height: 200,
-                              child: Card(
-                                elevation: 0,
-                                  child: canvas(context))),
+                            (context, index) => Stack(
+
+                              children: [
+                                Container(
+                                   color: Colors.white,
+                                height: MediaQuery.of(context).size.height*0.33,
+                              ),
+                                Container(  height:MediaQuery.of(context).size.height*0.30,child: canvas(context)),
+                                AnimatedPositioned(
+                                  duration: Duration(milliseconds: 200),
+                                  left: MediaQuery.of(context).size.width * 0.01,
+                                  top: true
+                                      ? MediaQuery.of(context).size.height * 0.24
+                                      : MediaQuery.of(context).size.height * 0.21,
+                                  child: AnimatedOpacity(
+                                    duration: Duration(milliseconds: 200),
+                                    opacity: true ? 1 : 0,
+                                    child: CircleAvatar(
+                                      radius: 30,
+                                      backgroundColor: Colors.white,
+                                      child: CircleAvatar(
+                                        radius: 28.0,
+                                        backgroundImage:
+                                        NetworkImage('https://i.postimg.cc/XqNPjZXN/KFC.png'),
+                                        backgroundColor: Colors.transparent,
+                                      ),
+                                    ),
+                                  ),
+                                ),
+
+                              ],
+                            ),
                         childCount: 1,
                       ),
                     ),
-                    ///sliver 1
-
 
                     SliverPinnedHeader(child: Header()),
 
                     SliverList(
                       delegate: SliverChildBuilderDelegate(
                             (context, index) => Padding(
-                          padding: const EdgeInsets.symmetric(horizontal: 2,vertical: 4),
+                          padding: const EdgeInsets.symmetric(horizontal: 2,vertical: 0),
                              child: Column(
                                children: [
                                  Container(
-                                   alignment: Alignment.center,
+                                   //alignment: Alignment.center,
                                    decoration: BoxDecoration(
                                        color: Color(0xfffafafa),
                                        border: Border.all(
@@ -85,7 +106,7 @@ class _FoodScreanState extends State<FoodScrean> with TickerProviderStateMixin {
                                            width: 1.0),   // set border width
                                        borderRadius: BorderRadius.all(
                                            Radius.circular(10.0)), // set rounded corner radius
-                                       boxShadow: [BoxShadow(blurRadius: 1,color: Colors.black54,offset: Offset(1,1))]// make rounded corner of border
+                                      // boxShadow: [BoxShadow(blurRadius: 1,color: Colors.black54,offset: Offset(1,1))]// make rounded corner of border
                                    ),
                                    child: infoCard(context),
                                  ),
@@ -176,82 +197,55 @@ class _FoodScreanState extends State<FoodScrean> with TickerProviderStateMixin {
                         childCount: 1,
                       ),
                     ),
-                    ///sliver 1
-                  //  SliverPinnedHeader(child: Header1(context,1,this)),
-                    ///Sliver2
-                 /*   SliverList(
-                      delegate: SliverChildBuilderDelegate(
-                            (context, index) => Container(
-                            height: 300,
-                            child: canvas1(context)),
-                        childCount: 1,
-                      ),
-                    ),
-                    SliverList(
-                      delegate: SliverChildBuilderDelegate(
-                            (context, index) => Container(
-                            height: 300,
-                            child: canvas1(context)),
-                        childCount: 1,
-                      ),
-                    ),
-                    SliverList(
-                      delegate: SliverChildBuilderDelegate(
-                            (context, index) => Container(
-                            height: 300,
-                            child: canvas1(context)),
-                        childCount: 1,
-                      ),
-                    ),*/
 
-                    SliverPinnedHeader(child:  Container(
-                      height: MediaQuery.of(context).size.height,
-                      child: AnimatedBuilder(
-                        animation: _bloc,
-                        builder: (_, __) => Column(
-                          crossAxisAlignment: CrossAxisAlignment.stretch,
-                          children: [
-                            Container(
+                    SliverPinnedHeader(
+                      child:  Container(
+                        height: MediaQuery.of(context).size.height,
+                        child: AnimatedBuilder(
+                          animation: _bloc,
+                          builder: (_, __) => Column(
+                            crossAxisAlignment: CrossAxisAlignment.stretch,
+                            children: [
+                              Container(
 
-                              height: 60,
-                              child: TabBar(
-                                onTap: _bloc.onTabCategorySelected,
-                                indicatorWeight: 2,
-                                labelStyle: TextStyle(
-                                    color: Color(0xFF023048), fontWeight: FontWeight.w400, fontSize: 17) ,
-                                isScrollable: true,
-                                controller: _bloc.tabController,
-                                indicatorColor:Color(0xFF120078),
-                                labelColor: Color(0xFF120078),
-                                unselectedLabelColor: Colors.black54,
-                                indicatorSize: TabBarIndicatorSize.label,
-                                tabs: _bloc.tabs.map((e) => Padding(
-                                  padding: EdgeInsets.all(4),
-                                  child: Tab(
-                                    text:  e.category.name,
-                                  ),
-                                )).toList(),
+                                height: 60,
+                                child: TabBar(
+                                  onTap: _bloc.onTabCategorySelected,
+                                  indicatorWeight: 2,
+                                  labelStyle: TextStyle(
+                                      color: Color(0xFF023048), fontWeight: FontWeight.w400, fontSize: 17) ,
+                                  isScrollable: true,
+                                  controller: _bloc.tabController,
+                                  indicatorColor:Color(0xFF120078),
+                                  labelColor: Color(0xFF120078),
+                                  unselectedLabelColor: Colors.black54,
+                                  indicatorSize: TabBarIndicatorSize.label,
+                                  tabs: _bloc.tabs.map((e) => Padding(
+                                    padding: EdgeInsets.all(4),
+                                    child: Tab(
+                                      text:  e.category.name,
+                                    ),
+                                  )).toList(),
+                                ),
                               ),
-                            ),
-                            Expanded(
-                              child: ListView.builder(
-                                  controller: _bloc.scrollController,
-                                  padding: EdgeInsets.symmetric(horizontal: 20),
-                                  itemCount: _bloc.items.length,
-                                  itemBuilder: (context, index) {
-                                    final item = _bloc.items[index];
-                                    return (item.isCategory)
-                                        ? ListCategoryItem(item.category)
-                                        : ListProductItem(item.product);
-                                  }),
-                            )
-                          ],
+                              Expanded(
+                                child: ListView.builder(
+                                    controller: _bloc.scrollController,
+                                    padding: EdgeInsets.symmetric(horizontal: 20),
+                                    itemCount: _bloc.items.length,
+                                    itemBuilder: (context, index) {
+                                      final item = _bloc.items[index];
+                                      return (item.isCategory)
+                                          ? ListCategoryItem(item.category)
+                                          : ListProductItem(item.product);
+                                    }),
+                              )
+                            ],
+                          ),
                         ),
                       ),
                     ),
-                    ),
 
-                    // buildLoadMore(context),
                   ],
                 ),
 
